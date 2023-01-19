@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ include "optimizor-ui.fullname" . }}
+spec:
+  gateways:
+  - istio-system/intelops-gateway
+  hosts:
+  - optimizor.intelops.dev
+  http:
+  - route:
+    - destination:
+        host: {{ include "optimizor-ui.fullname" . }}
+        port:
+          number: {{ .Values.service.port }}
+    timeout: 30s

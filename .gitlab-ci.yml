@@ -1,0 +1,67 @@
+stages:
+- build
+- build_mr
+- helmpublish
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/ml/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}/envoy:${CI_COMMIT_TAG}"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+  tags:
+    - civovm
+
+build_mr:
+  stage: build_mr
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}/mr:${CI_COMMIT_TAG}"
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/ml/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}/envoy/mr:${CI_COMMIT_TAG}"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  tags:
+    - civovm
+
+helmpublish:
+  stage: helmpublish
+  image:
+    name: alpine/helm
+    entrypoint: [""]
+  script:
+    - version=`grep "version:" "${CI_PROJECT_DIR}/helm/optimizor-ui/Chart.yaml" | awk '{print $2}'`
+    - helm package "${CI_PROJECT_DIR}/helm/optimizor-ui"
+    - helm plugin install https://github.com/chartmuseum/helm-push --version 0.10.2
+      #    - helm repo add --username "${CI_REGISTRY_USER}" --password "${CI_REGISTRY_PASSWORD}" intelops ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/incubator
+    - helm repo add --username "${CI_REGISTRY_USER}" --password "${CI_REGISTRY_PASSWORD}" intelops ${CI_API_V4_URL}/projects/35334749/packages/helm/incubator
+    - helm cm-push optimizor-ui-"${version}".tgz intelops
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+  tags:
+    - civovm

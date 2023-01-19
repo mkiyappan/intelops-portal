@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ include "optimizor-ui.fullname" . }}-envoy
+spec:
+  gateways:
+  - istio-system/intelops-gateway
+  hosts:
+  - envoy.dev.optimizor.app
+  http:
+  - route:
+    - destination:
+        host: {{ include "optimizor-ui.fullname" . }}
+        port:
+          number: 9090
+    timeout: 30s
