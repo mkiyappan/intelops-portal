@@ -1,0 +1,21 @@
+.gridStyle{
+    @apply m-auto bg-slate-50 rounded-3xl w-3/4 h-[100%] grid lg:grid-cols-2 mt-10;
+}
+
+.imgStyle{
+    /* @apply bg-gradient-to-r from-orange-400 to-orange-700 rounded-l-3xl bg-cover relative overflow-hidden; */
+    @apply bg-cover overflow-hidden relative rounded-l-3xl;
+    background-image: url('../images/left_bg.png'), linear-gradient(98deg, #c2410c,#fb923c );
+}
+
+.bgStyle{
+    @apply flex object-contain w-full float-left bg-cover flex-col justify-center items-center;
+    background: url('../images/bg.png')0 no-repeat;
+    height: 100vh;
+    -o-object-fit: contain;
+}
+
+.logoImg{
+    @apply w-full h-auto z-1 object-center inset-0 absolute mt-[45%] ml-[35%] bg-no-repeat bg-center;
+    background: url('../images/optimizor-150.png') no-repeat;
+}
