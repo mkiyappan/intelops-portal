@@ -1,11 +1,11 @@
-// if (document.querySelector("[choices-select]")) {
-//   var choices = document.querySelectorAll("[choices-select]");
-//   if(choices && choices.length > 0) {
-//     choices.forEach(choice => {
-//       const example = new Choices(choice);
-//     });
-//   }
-// }
+if (document.querySelector("[choices-select]")) {
+  var choices = document.querySelectorAll("[choices-select]");
+  if(choices && choices.length > 0) {
+    choices.forEach(choice => {
+      const example = new Choices(choice);
+    });
+  }
+}
 
 if (document.getElementById("choices-gender")) {
   var gender = document.getElementById("choices-gender");

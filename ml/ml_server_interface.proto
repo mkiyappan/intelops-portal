@@ -83,6 +83,8 @@ message ExperimentSetupRequest{
   GitParams           testParams                  = 10;
   string              email                       = 11;
   string              setupName                   = 12;
+  int32               noOfHits                    = 13;
+  bool                isTrain                     = 14;
 }
 
 message ResourceUsage {
@@ -126,6 +128,7 @@ message IterationResp{
   float                 ResponseTime      = 14;
   float                 SuccessRate       = 15;
   int32                 TotReq            = 16;
+  map<string, float>    expSupportMetric  = 17;
 }
 
 //If the experiment start, tit will show the results.

@@ -5,16 +5,19 @@ import Sidebar from "../components/Dashboard/sidebar";
 import PageHeader from "../components/Dashboard/pageHeader";
 
 const MyApp = ({ Component, pageProps }) => {
+  console.log('Component---', Component);
+  console.log('pageProps---', pageProps);
   return (
     <>  
       <Head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="shortcut icon" href="/favicon.ico?v=3" />
-        <title>Optimizor UI</title>
+        <title>Intelops Console</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
         <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+        <link href="../assets/css/sweet-alerts.css" rel="stylesheet" />
         {/* <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script> */}
         <link href="../assets/css/soft-ui-dashboard-tailwind.css?v=1.0.1" rel="stylesheet" />
       </Head>
@@ -23,12 +26,16 @@ const MyApp = ({ Component, pageProps }) => {
       <main className="relative h-full max-h-screen transition-all duration-200 ease-soft-in-out xl:ml-68 rounded-xl">
         <PageHeader/>
         <Script type="text/javascript"  src="../assets/js/plugins/perfect-scrollbar.min.js" />
+        <Script type="text/javascript"  src="../assets/js/plugins/choices.min.js"/>
         <Script type="text/javascript"  src="../assets/js/plugins/chartjs.min.js"/>
         <Script type="text/javascript"  src="../assets/js/plugins/threejs.js" strategy="beforeInteractive"/>
         <Script type="text/javascript"  src="../assets/js/plugins/orbit-controls.js" strategy="beforeInteractive"/>
         <Script type="text/javascript"  src="../assets/js/globe.js"/>
+        {/* <Script type="text/javascript"  src="../assets/js/sweet-alerts.js"/> */}
         <Script type="text/javascript"  src="../assets/js/plugins/kit-fonticon.js"/>
         <Script type="text/javascript"  src="../assets/js/soft-ui-dashboard-pro-tailwind.js?v=1.0.1" />
+        
+
         <Component {...pageProps} />
       </main>
     </div>

@@ -37,7 +37,7 @@ function init(sections) {
       }
       trigger.classList.remove("text-slate-500")
       trigger.classList.add("text-slate-700")
-      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.maxHeight =  "500px";
     } else {
       if(trigger.querySelector("[section-open-icon]")){
         let open_icon = trigger.querySelector("[section-open-icon]");

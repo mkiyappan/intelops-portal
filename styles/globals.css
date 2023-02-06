@@ -24,6 +24,17 @@ a {
     background: black;
   }
 }
+.active_Page  {
+  max-height: 37px;
+}
+.setup_disable {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.errorField {
+  border: 0.1rem solid red;
+}
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */

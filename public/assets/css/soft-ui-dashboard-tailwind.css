@@ -1418,7 +1418,7 @@ h6 {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .h-20 {
@@ -2707,7 +2707,7 @@ h6 {
 
 .from-purple-700 {
   --tw-gradient-from: #FF4E00;
-  --tw-gradient-to: rgb(121 40 202 / 0);
+  --tw-gradient-to: #FF4E00;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -3429,7 +3429,7 @@ h6 {
 
 .text-slate-400 {
   --tw-text-opacity: 1;
-  color: #CC5500;
+  color: #ef7c38;
 }
 
 .text-slate-700 {
@@ -6701,7 +6701,7 @@ h6 {
   left: 574px;
   transform: translate(-18.9838%, 0px);
   pointer-events: none;
-  background-image: linear-gradient(#EC9F05, #FF4E00);
+  background-image: linear-gradient(#f97316, #FF4E00);
   opacity: 0.6;
   color: white;
   padding: 10px;
@@ -6710,4 +6710,26 @@ h6 {
 .text-success {
   color: #17ad37;
   font-weight: bold;
+}
+.setup_disable {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.errorField {
+  border: 0.1rem solid red;
+}
+.errorText {
+  color: red;
+}
+.pointer {
+  cursor: pointer;
+}
+.accordian_border {
+  border: 1px solid #f97316;
+}
+.action_none{
+  pointer-events: none;
+}
+.listborder_top{
+  border-top: 1px solid #f97316;
 }

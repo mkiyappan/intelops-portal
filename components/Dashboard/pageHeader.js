@@ -5,12 +5,24 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const PageHeader = ({ name }) => {
-  const router = useRouter();
+const PageHeader = () => {
+  const pageRouter = useRouter();
+  const {route } = pageRouter;
+  let pageTitle = 'Intelops';
+  
+  switch(route) {
+    case '/experiment':
+      pageTitle = 'Experiments';
+      break;
+    default:
+      pageTitle = 'Intelops';
+      break
+  }
+  
   const SignOut = () => {
     window.localStorage.removeItem('USER_CODE');
     window.localStorage.removeItem('USER_EMAIL');
-    router.push('/sign-in');
+    pageRouter.push('/sign-in');
   };
 
   return (
@@ -18,17 +30,9 @@ const PageHeader = ({ name }) => {
         <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
           <div className="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto" id="navbar">
           <div className="flex flex-col h-full">
-              <h2 className="mb-0 font-bold dark:text-white">Intelops Statistics</h2>
+              <h2 className="mb-0 font-bold dark:text-white">{pageTitle}</h2>
             </div>
-            <div className="flex items-center md:ml-auto md:pr-4">
-            
-              <div className="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
-                <span className="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-                  <i className="fas fa-search" aria-hidden="true"></i>
-                </span>
-                <input type="text" className="pl-9 text-sm focus:shadow-soft-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
-              </div>
-            </div>
+            <div className="flex items-center md:ml-auto md:pr-4"></div>
             <ul className="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
              
               <li className="flex items-center">

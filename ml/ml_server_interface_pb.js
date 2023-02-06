@@ -2564,7 +2564,9 @@ proto.experiment.ml_server.ExperimentSetupRequest.toObject = function(includeIns
     kustomizationparams: (f = msg.getKustomizationparams()) && proto.experiment.ml_server.GitParams.toObject(includeInstance, f),
     testparams: (f = msg.getTestparams()) && proto.experiment.ml_server.GitParams.toObject(includeInstance, f),
     email: jspb.Message.getFieldWithDefault(msg, 11, ""),
-    setupname: jspb.Message.getFieldWithDefault(msg, 12, "")
+    setupname: jspb.Message.getFieldWithDefault(msg, 12, ""),
+    noofhits: jspb.Message.getFieldWithDefault(msg, 13, 0),
+    istrain: jspb.Message.getBooleanFieldWithDefault(msg, 14, false)
   };
 
   if (includeInstance) {
@@ -2657,6 +2659,14 @@ proto.experiment.ml_server.ExperimentSetupRequest.deserializeBinaryFromReader = 
     case 12:
       var value = /** @type {string} */ (reader.readString());
       msg.setSetupname(value);
+      break;
+    case 13:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNoofhits(value);
+      break;
+    case 14:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIstrain(value);
       break;
     default:
       reader.skipField();
@@ -2767,6 +2777,20 @@ proto.experiment.ml_server.ExperimentSetupRequest.serializeBinaryToWriter = func
   if (f.length > 0) {
     writer.writeString(
       12,
+      f
+    );
+  }
+  f = message.getNoofhits();
+  if (f !== 0) {
+    writer.writeInt32(
+      13,
+      f
+    );
+  }
+  f = message.getIstrain();
+  if (f) {
+    writer.writeBool(
+      14,
       f
     );
   }
@@ -3089,6 +3113,42 @@ proto.experiment.ml_server.ExperimentSetupRequest.prototype.getSetupname = funct
  */
 proto.experiment.ml_server.ExperimentSetupRequest.prototype.setSetupname = function(value) {
   return jspb.Message.setProto3StringField(this, 12, value);
+};
+
+
+/**
+ * optional int32 noOfHits = 13;
+ * @return {number}
+ */
+proto.experiment.ml_server.ExperimentSetupRequest.prototype.getNoofhits = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.experiment.ml_server.ExperimentSetupRequest} returns this
+ */
+proto.experiment.ml_server.ExperimentSetupRequest.prototype.setNoofhits = function(value) {
+  return jspb.Message.setProto3IntField(this, 13, value);
+};
+
+
+/**
+ * optional bool isTrain = 14;
+ * @return {boolean}
+ */
+proto.experiment.ml_server.ExperimentSetupRequest.prototype.getIstrain = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 14, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.experiment.ml_server.ExperimentSetupRequest} returns this
+ */
+proto.experiment.ml_server.ExperimentSetupRequest.prototype.setIstrain = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 14, value);
 };
 
 
@@ -4021,7 +4081,8 @@ proto.experiment.ml_server.IterationResp.toObject = function(includeInstance, ms
     nouserpersec: jspb.Message.getFloatingPointFieldWithDefault(msg, 13, 0.0),
     responsetime: jspb.Message.getFloatingPointFieldWithDefault(msg, 14, 0.0),
     successrate: jspb.Message.getFloatingPointFieldWithDefault(msg, 15, 0.0),
-    totreq: jspb.Message.getFieldWithDefault(msg, 16, 0)
+    totreq: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    expsupportmetricMap: (f = msg.getExpsupportmetricMap()) ? f.toObject(includeInstance, undefined) : []
   };
 
   if (includeInstance) {
@@ -4124,6 +4185,12 @@ proto.experiment.ml_server.IterationResp.deserializeBinaryFromReader = function(
     case 16:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setTotreq(value);
+      break;
+    case 17:
+      var value = msg.getExpsupportmetricMap();
+      reader.readMessage(value, function(message, reader) {
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readFloat, null, "", 0.0);
+         });
       break;
     default:
       reader.skipField();
@@ -4268,6 +4335,10 @@ proto.experiment.ml_server.IterationResp.serializeBinaryToWriter = function(mess
       16,
       f
     );
+  }
+  f = message.getExpsupportmetricMap(true);
+  if (f && f.getLength() > 0) {
+    f.serializeBinary(17, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeFloat);
   }
 };
 
@@ -4616,6 +4687,28 @@ proto.experiment.ml_server.IterationResp.prototype.getTotreq = function() {
 proto.experiment.ml_server.IterationResp.prototype.setTotreq = function(value) {
   return jspb.Message.setProto3IntField(this, 16, value);
 };
+
+
+/**
+ * map<string, float> expSupportMetric = 17;
+ * @param {boolean=} opt_noLazyCreate Do not create the map if
+ * empty, instead returning `undefined`
+ * @return {!jspb.Map<string,number>}
+ */
+proto.experiment.ml_server.IterationResp.prototype.getExpsupportmetricMap = function(opt_noLazyCreate) {
+  return /** @type {!jspb.Map<string,number>} */ (
+      jspb.Message.getMapField(this, 17, opt_noLazyCreate,
+      null));
+};
+
+
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.experiment.ml_server.IterationResp} returns this
+ */
+proto.experiment.ml_server.IterationResp.prototype.clearExpsupportmetricMap = function() {
+  this.getExpsupportmetricMap().clear();
+  return this;};
 
 
 

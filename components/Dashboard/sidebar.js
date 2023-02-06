@@ -5,8 +5,22 @@ import {
 } from "@heroicons/react/solid";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 const Sidebar = () => {
+  const pageRouter = useRouter();
+  const {route } = pageRouter;
+  let activePage = 'max-h-0';
+  
+  switch(route) {
+    case '/experiment':
+      activePage = 'active_page';
+      break;
+    default:
+      activePage = 'max-h-0';
+      break
+  }
+  
   return (
     <>
       <aside mini="false" className="fixed inset-y-0 left-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto transition-all duration-200 -translate-x-full bg-white border-0 shadow-none xl:ml-4 dark:bg-gray-950 ease-soft-in-out z-990 max-w-64 rounded-2xl xl:translate-x-0 xl:bg-transparent" id="sidenav-main">
@@ -25,12 +39,11 @@ const Sidebar = () => {
                 </div>
                 <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Optimizor</span>
               </Link>
-              <div className="h-auto overflow-hidden transition-all duration-200 ease-soft-in-out max-h-0" id="pagesExamples">
+              <div className={`h-auto overflow-hidden transition-all duration-200 ease-soft-in-out ${activePage}`} id="pagesExamples">
                 <ul className="flex flex-wrap pl-4 mb-0 ml-6 list-none transition-all duration-200 ease-soft-in-out">
                   <li className="w-full">
-                    <Link href="/experiment" collapse_trigger="secondary" className="after:ease-soft-in-out after:font-awesome-5-free ease-soft-in-out py-1.6 ml-5.4 pl-4 text-sm before:-left-4.5 before:h-1.25 before:w-1.25 relative my-0 mr-4 flex items-center whitespace-nowrap bg-transparent pr-4 font-medium text-slate-800/50 shadow-none transition-colors before:absolute before:top-1/2 before:-translate-y-1/2 before:rounded-3xl before:bg-slate-800/50 before:content-[''] after:ml-auto after:inline-block after:font-bold after:text-slate-800/50 after:antialiased after:transition-all after:duration-200 after:content-['\f107'] dark:text-white dark:opacity-60 dark:before:bg-white dark:before:opacity-80 dark:after:text-white/50 dark:after:text-white" aria-expanded="false" >
-                      <span className="w-0 text-center transition-all duration-200 opacity-0 pointer-events-none ease-soft-in-out"> P </span>
-                      <span className="transition-all duration-100 pointer-events-none ease-soft"> Experiment <b className="caret"></b></span>
+                    <Link href="/experiment" collapse_trigger="secondary" className="after:ease-soft-in-out after:font-awesome-5-free ease-soft-in-out py-1.6 ml-5.4 pl-4 text-sm before:-left-4.5 before:h-1.25 before:w-1.25 relative my-0 mr-4 flex items-center whitespace-nowrap bg-transparent pr-4 font-medium shadow-none transition-colors before:absolute before:top-1/2 before:-translate-y-1/2 before:rounded-3xl before:bg-slate-800/50 before:content-[''] after:ml-auto after:inline-block after:font-bold after:text-slate-800/50 after:antialiased after:transition-all after:duration-200 dark:text-white dark:opacity-60 dark:before:bg-white dark:before:opacity-80 dark:after:text-white/50 dark:after:text-white" aria-expanded="false" >
+                      <span className="transition-all duration-100 pointer-events-none ease-soft"> Experiment </span>
                     </Link>
                   </li>
                 </ul>
